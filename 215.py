@@ -6,6 +6,8 @@
 @IDE ：PyCharm
 @Motto：thinking coding 
 """
+import random
+
 """
  数组中的第K个最大元素
 已解答
@@ -36,7 +38,9 @@ class Solution(object):
         return nums[-k]
         
 """
-#选择排序
+
+
+# 选择排序
 class Solution(object):
     def findKthLargest(self, nums, k):
         """
@@ -44,18 +48,52 @@ class Solution(object):
         :type k: int
         :rtype: int
         """
-        for i in range(len(nums) -1 ):
+        for i in range(len(nums) - 1):
             min_i = i
-            for j in range(i + 1 , len(nums)):
+            for j in range(i + 1, len(nums)):
                 if nums[j] < nums[min_i]:
                     min_i = j
             if i != min_i:
-                nums[i], nums[min_i] = nums[min_i],nums[i]
+                nums[i], nums[min_i] = nums[min_i], nums[i]
         print(nums)
-        print(nums[len(nums)-k])
+        print(nums[len(nums) - k])
+
+
+# 快速排序
+class Solution2(object):
+    def findKthLargest(self, nums, k):
+        nums = self.quickSort(nums, 0, len(nums) - 1)
+        print(nums[-k])
+        return nums[-k]
+
+    def randomPartition(self, nums: [int], low: int, high: int) -> int:
+        i = random.randint(low, high)
+        nums[i], nums[low] = nums[low], nums[i]
+        return self.partition(nums, low, high)
+
+    def partition(self, nums: [int], low: int, high: int) -> int:
+        pivot = nums[low]
+        i, j = low, high
+        while i < j:
+            while i < j and nums[j] >= pivot:
+                j -= 1
+            while i < j and nums[i] <= pivot:
+                i += 1
+            nums[i], nums[j] = nums[j], nums[i]
+
+        nums[i], nums[low] = nums[low], nums[i]
+
+        return i
+
+    def quickSort(self, nums: [int], low: int, high: int) -> [int]:
+        if low < high:
+            pivot_i = self.randomPartition(nums, low, high)
+            self.quickSort(nums, low, pivot_i - 1)
+            self.quickSort(nums, pivot_i + 1, high)
+        return nums
+
+
 # nums = [3,2,3,1,2,4,5,5,6]
-nums = [3,2,1,5,6,4]
-Solution().findKthLargest(nums=nums,k=2)
-
-
-
+nums = [3, 2, 1, 5, 6, 4]
+# Solution().findKthLargest(nums=nums, k=2)
+Solution2().findKthLargest(nums=nums, k=2)
