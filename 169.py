@@ -90,5 +90,5 @@ class Solution(object):
             count += 1 if candidate == num else -1
         print(candidate)
 
-nums = [2, 2, 1, 1, 1, 2, 2]
+nums = [2, 2, 1, 1, 1, 2, 2,3,3,3,3]
 Solution().majorityElement(nums=nums)
