@@ -50,7 +50,7 @@ class Solution():
 
         strs = [str(num) for num in nums]
         quick_sort(0, len(nums)-1)
-        if strs[-1] == "0": #be aware of the last one  
+        if strs[-1] == "0": #be aware of the last one
             return "0"
         return ''.join(strs[::-1])
 
